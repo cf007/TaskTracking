@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+@model IEnumerable<TaskTracking.User>
+
+<h2>User's tasks</h2>
+
+
+<div class="demo">
+    <div id="accordion">
+        @foreach (var item in Model)
+        {
+            <h3><b>@Html.DisplayFor(modelItem => item.firstname) @Html.DisplayFor(modelItem => item.lastname)</b></h3>
+            <div>
+                             
+
+                @foreach (var task in item.Tasks)
+                {                   
+                    <p><b>@Html.DisplayFor(modelItem => task.taskname)</b></p>
+                    <p>@Html.DisplayFor(modelItem => task.taskdesc)</p>                  
+                }
+                <hr />
+                <div class="pull-right">@Html.ActionLink("Assign Task", "Assign", new { id = item.username }, new { @class = "btn btn-default" })</div>
+
+            </div>
+        }
+    </div>
+
+</div>

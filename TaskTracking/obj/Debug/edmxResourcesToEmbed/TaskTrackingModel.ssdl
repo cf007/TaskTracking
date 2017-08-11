@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskTrackingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="taskid" />
+    </Key>
+    <Property Name="taskid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taskname" Type="nvarchar" MaxLength="50" />
+    <Property Name="taskdesc" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+    <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users_Tasks">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="taskId" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="taskId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Users_Tasks_Tasks">
+    <End Role="Tasks" Type="Self.Tasks" Multiplicity="1" />
+    <End Role="Users_Tasks" Type="Self.Users_Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tasks">
+        <PropertyRef Name="taskid" />
+      </Principal>
+      <Dependent Role="Users_Tasks">
+        <PropertyRef Name="taskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Tasks_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Users_Tasks" Type="Self.Users_Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="Users_Tasks">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TaskTrackingDBModelStoreContainer">
+    <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users_Tasks" EntityType="Self.Users_Tasks" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Users_Tasks_Tasks" Association="Self.FK_Users_Tasks_Tasks">
+      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="Users_Tasks" EntitySet="Users_Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Tasks_Users" Association="Self.FK_Users_Tasks_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Users_Tasks" EntitySet="Users_Tasks" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

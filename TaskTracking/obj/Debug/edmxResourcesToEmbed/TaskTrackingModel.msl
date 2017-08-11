@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TaskTrackingDBModelStoreContainer" CdmEntityContainer="TaskTrackingDBEntities">
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="TaskTrackingDBModel.Task">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="taskid" ColumnName="taskid" />
+          <ScalarProperty Name="taskname" ColumnName="taskname" />
+          <ScalarProperty Name="taskdesc" ColumnName="taskdesc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TaskTrackingDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Users_Tasks" TypeName="TaskTrackingDBModel.Users_Tasks" StoreEntitySet="Users_Tasks">
+      <EndProperty Name="Tasks">
+        <ScalarProperty Name="taskid" ColumnName="taskId" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="username" ColumnName="username" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
